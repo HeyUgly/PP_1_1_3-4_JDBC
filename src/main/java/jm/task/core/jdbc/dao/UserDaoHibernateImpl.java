@@ -1,7 +1,9 @@
 package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
-import org.hibernate.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
 
-            session.createSQLQuery("TRUNCATE TABLE user").executeUpdate();
+            session.createSQLQuery("DROP TABLE IF EXISTS user").executeUpdate();
 
             transaction.commit();
         } catch (Exception e) {
